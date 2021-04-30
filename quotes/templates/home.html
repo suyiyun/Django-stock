@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %} 
+
+{% if ticker %}
+	{{ ticker }}
+{% endif %}
+
+{% if api %}
+	{% if api == "Error..." %}
+		There was a problem with your ticker symbol</br>
+		please do not use the company name, we only identify ticker</br>
+		please try again...
+	{% else %} 
+
+		<h1>{{ api.companyName }} </h1></br>
+		Time: {{ api.latestTime }}</br>
+		Price: {{ api.latestPrice }}</br>
+		Open: ${{ api.open }}</br>
+		High: ${{ api.high }}</br>
+		Low: ${{ api.low }}</br>
+		Close: ${{ api.close }}</br>
+		AdjClose: ${{ api.iexClose }}</br>
+		Volume: ${{ api.latestVolume }}</br>
+		Future stock price: Future Work To Be Continued ... </br>
+
+ 		<!-- {{ api }} -->
+	{% endif %}
+{% endif %}
+
+{% endblock %}

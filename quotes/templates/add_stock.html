@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1> ADD STOCK </h1>
+
+<br/>
+
+<form action = "{% url 'add_stock' %}" class="d-flex" method = "POST">
+      	{% csrf_token %}
+        <input class="form-control me-2" type="search" 
+        placeholder="Add To Database" aria-label="Search"
+        name = "ticker">
+        <button class="btn btn-outline-success" type="submit">Add Stock</button>
+      </form>
+ <br/> <br/>
+
+ <table class="table table-striped table-bordered table-hover">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">Company Name</th>
+      <th scope="col">Stock Price</th>
+      <th scope="col">Open Price</th>
+      <th scope="col">High Price</th>
+      <th scope="col">Low Price</th>
+      <th scope="col">Close Price</th>
+	  <th scope="col">AdjClose</th>
+      <th scope="col">Predicted</th>
+      <!-- <th scope="col">Delete Stock</th> -->
+    </tr>
+  </thead>
+  <tbody>
+{% if ticker %}
+  	{% for list_item in output %}
+
+	    <tr>
+	      <th scope="row">{{ list_item.latestTime }}</th>
+	      <td>${{ list_item.latestPrice }}</td>
+	      <td>${{ list_item.open }}</td>
+	      <td>${{ list_item.high }}</td>
+	      <td>${{ list_item.low }}</td>
+	      <td>${{ list_item.close }}</td>
+	      <td>${{ list_item.iexClose }}</td>
+
+	      <td>Future Work</td>
+<!-- 	      <td><a href="/"> 
+		Delete Stock</a></td> -->
+
+	    </tr>
+	{% endfor %}
+
+{% endif %}
+
+  </tbody>
+</table>
+
+
+
+<!-- {{ ticker }} -->
+<h2> Existed Stock </h2>
+<h2> DELETE STOCK </h2>
+
+<br/>
+{% if ticker %}
+	{% for item in ticker %}
+		 <a href="{% url 'delete' item.id %}"
+		class="btn btn-danger">
+		Delete {{ item }} </a> <br/><br/>
+	{% endfor %}
+{% else %}
+	You don't have any stocks in database...
+{% endif %}
+<br/>
+
+{% endblock %}
