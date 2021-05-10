@@ -61,3 +61,15 @@ def delete(request, stock_id):
 def delete_stock(request):
 	ticker = Stock.objects.all()
 	return render(request, 'delete_stock.html', {'ticker': ticker})
+
+def predict(request):
+    stocks = Stock.objects.order_by('ticker')[0:3]
+    top_stock_dict = {}
+    model_types = ["LSTM", "RNN"]
+    for stock in stocks:
+        top_stock_dict[stock] = {}
+        for model_type in model_types:
+            top_stock_dict[stock][model_type] = stock.price_set.filter(model_type = model_type).order_by("-date")[:5]
+    print(top_stock_dict)
+
+    return render(request, "app/predict.html", {"top_stocks_dict": top_stock_dict})
