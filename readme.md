@@ -12,6 +12,8 @@ migrate all the databases
 ```
 python manage.py migrate 
 ```
+or use this if database/ table already existed
+python manage.py migrate --fake
 
 
 # Quick start
