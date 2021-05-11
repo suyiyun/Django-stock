@@ -8,7 +8,7 @@ from apscheduler.triggers.cron import CronTrigger
 from django.core.management.base import BaseCommand
 from django_apscheduler.jobstores import DjangoJobStore
 from django_apscheduler.models import DjangoJobExecution
-from app.models import Stock, StockInfo, PredictPrice
+from quotes.models import Stock, StockInfo, PredictPrice
 import yfinance as yf
 from tqdm import tqdm
 from django.utils.timezone import make_aware

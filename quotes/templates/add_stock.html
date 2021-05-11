@@ -14,11 +14,12 @@
         <button class="btn btn-outline-success" type="submit">Add Stock</button>
       </form>
  <br/> <br/>
-
+ <h1> Predicted Price is the suggested buying price, click botton to make your selling decision </h1>
  <table class="table table-striped table-bordered table-hover">
   <thead class="table-dark">
     <tr>
       <th scope="col">Company Name</th>
+	  <th scope="col">LatestTime</th>
       <th scope="col">Stock Price</th>
       <th scope="col">Open Price</th>
       <th scope="col">High Price</th>
@@ -26,6 +27,7 @@
       <th scope="col">Close Price</th>
 	  <th scope="col">AdjClose</th>
       <th scope="col">Predicted</th>
+	  
       <!-- <th scope="col">Delete Stock</th> -->
     </tr>
   </thead>
@@ -35,16 +37,15 @@
 
 	    <tr>
 	      <th scope="row">{{ list_item.companyName }}</th>
+		  <td>{{ list_item.latestTime }}</th>
 	      <td>${{ list_item.latestPrice }}</td>
-	      <td>${{ list_item.open }}</td>
-	      <td>${{ list_item.high }}</td>
-	      <td>${{ list_item.low }}</td>
-	      <td>${{ list_item.close }}</td>
+	      <td>${{ list_item.iexOpen }}</td>
+	      <td>${{ list_item.week52High }}</td>
+	      <td>${{ list_item.week52Low }}</td>
+	      <td>${{ list_item.iexClose }}</td>
 	      <td>${{ list_item.iexClose }}</td>
 
-	      <td>Future Work</td>
-<!-- 	      <td><a href="/"> 
-		Delete Stock</a></td> -->
+	      <td><a href="http://127.0.0.1:9000/app/predict">${{list_item.iexAskPrice}}</a></td>
 
 	    </tr>
 	{% endfor %}

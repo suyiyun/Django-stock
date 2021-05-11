@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Stock
+from .models import Stock, Stock2, PredictPrice
 from .forms import StockForm
 from django.contrib import messages
 import requests
@@ -63,13 +63,32 @@ def delete_stock(request):
 	return render(request, 'delete_stock.html', {'ticker': ticker})
 
 def predict(request):
-    stocks = Stock.objects.order_by('ticker')[0:3]
-    top_stock_dict = {}
-    model_types = ["LSTM", "RNN"]
-    for stock in stocks:
-        top_stock_dict[stock] = {}
-        for model_type in model_types:
-            top_stock_dict[stock][model_type] = stock.price_set.filter(model_type = model_type).order_by("-date")[:5]
-    print(top_stock_dict)
+	stocks = Stock2.objects.order_by('company')[0:3]
+	# stocks = Stock2.objects.all()
+	print(stocks)
+	exit()
+	top_stock_dict = {}
+	model_types = ["LSTM", "RNN"]
+	for stock in stocks:
+		top_stock_dict[stock] = {}
+		for model_type in model_types:
+			top_stock_dict[stock][model_type] = stock.price_set.filter(model_type = model_type).order_by("-date")[:5]
+	
+	print(top_stock_dict)
 
-    return render(request, "app/predict.html", {"top_stocks_dict": top_stock_dict})
+	return render(request, "predict.html", {"top_stocks_dict": top_stock_dict})
+	# return render(request, "predict.html", {})
+
+# def predict(request):
+#     stocks = Stock2.objects.order_by('company')[0:4]
+    
+#     top_stock_dict = {}
+#     model_types = ["LSTM", "RNN", "COMB"]
+#     for stock in stocks:
+#         top_stock_dict[stock] = {}
+#         for model_type in model_types:
+#             top_stock_dict[stock][model_type] = stock.price_set.filter(model_type = model_type).order_by("-date")[:5]
+#     exit()
+#     print(top_stock_dict)
+    
+#     return render(request, "app/predict.html", {"top_stocks_dict": top_stock_dict})

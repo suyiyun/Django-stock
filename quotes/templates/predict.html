@@ -1,9 +1,97 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
+<!-- import echarts.js -->
+<script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
 <h1> Predicted Price </h1>
 <h1> Got Predicted Price based on Machine Learning Model</h1>
-<h1> L3 </h1>
+<h1> Result </h1>
+<div class="outter-wp">
+    <!--custom-widgets-->
+    <div class="custom-widgets">
+        <div class="row-one">
+            <h3 class="head-top">Next 5 Days' Stock Price</h3>
+						
+							</div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+    <!--//custom-widgets-->
+    <!--/candile-->
+    <div class="charts">
+        <div class="chrt-inner">
+            <div class="chrt-bars">
+                {% for stock, predicts in top_stocks_dict.items %}
+                <div class="col-md-6 chrt-two">
+                    <h3 class="sub-tittle">{{stock.company}}({{stock.symbol}})</h3>
+                    <!-- <div id="center"> -->
+                    <div id="fig{{stock.symbol}}" style="width: 100%; height: 350px"></div>
+                    <script>
+                        model_type = []
+                        Xdata = []
+                        Ydata = []
 
+                        {% for model, prices in predicts.items %}
+                        Xdata = []
+                        model_type.push("{{model}}");
+                        Yvalue = {
+                            name: "{{model}}",
+                            type: 'line',
+                            stack: "{{model}}",
+                            data: []
+                        }
+                        {% for price in prices %}
+                        Xdata.push("{{price.date|date:"Y - m - d"}}");
+                        Yvalue.data.push({{ price.price }})
+                        {% endfor %}
+                        Yvalue.data.reverse()
+                        Xdata.reverse()
+                        Ydata.push(Yvalue)
+                        console.log(Ydata)
+                        console.log(Xdata)
+                        {% endfor %}
+
+                        rawData = [
+                        ].reverse()
+
+
+                        // create ECharts object 
+                        var myChart = echarts.init(document.getElementById("fig{{stock.symbol}}"))
+                        // config 
+                        var option = {
+                            title: {
+                                text: '{{stock.symbol}}'
+                            },
+                            tooltip: {
+                                trigger: 'axis'
+                            },
+                            // toolbox: {
+                            //     feature: {
+                            //         saveAsImage: {}
+                            //     }
+                            // },
+                            legend: {
+                                data: ['LSTM', 'RNN', 'COMB']
+                            },
+                            xAxis: {
+                                type: "category",
+                                data: Xdata,
+                            },
+                            yAxis: {
+                                //type: 'value'
+                                scale: true
+                            },
+                            series: Ydata,
+
+                        }
+                        myChart.setOption(option)
+                    </script>
+                    <!-- </div> -->
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!--/candile-->
+</div>
 {% endblock %}
