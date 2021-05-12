@@ -25,7 +25,7 @@ python manage.py runserver
 
 if the server successful run, check
 # Frontend
-http://{domain}:8000/app/dashboard
+http://{domain}:8000/
 
 # backend
 http://{domain}:8000/admin
