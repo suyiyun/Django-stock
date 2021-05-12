@@ -12,10 +12,20 @@ migrate all the databases
 ```
 python manage.py migrate 
 ```
-
+or use this if database/ table already existed
+```
+python manage.py migrate --fake
+```
 
 # Quick start
 > start server
 ```
 python manage.py runserver
 ```
+
+if the server successful run, check
+# Frontend
+http://{domain}:8000/
+
+# backend
+http://{domain}:8000/admin
