@@ -45,7 +45,7 @@
 	      <td>${{ list_item.iexClose }}</td>
 	      <td>${{ list_item.iexClose }}</td>
 
-	      <td><a href="http://127.0.0.1:9000/app/predict">${{list_item.iexAskPrice}}</a></td>
+	      <td><a href="{% url 'delete_stock' %}">${{list_item.iexAskPrice}}</a></td>
 
 	    </tr>
 	{% endfor %}

@@ -63,8 +63,8 @@ def delete_stock(request):
 	return render(request, 'delete_stock.html', {'ticker': ticker})
 
 def predict(request):
-	stocks = Stock2.objects.order_by('company')[0:3]
-	# stocks = Stock2.objects.all()
+	# stocks = Stock2.objects.order_by('company')[0:3]
+	stocks = Stock2.objects.all()
 	print(stocks)
 	exit()
 	top_stock_dict = {}
@@ -91,4 +91,4 @@ def predict(request):
 #     exit()
 #     print(top_stock_dict)
     
-#     return render(request, "app/predict.html", {"top_stocks_dict": top_stock_dict})
+#     return render(request, "predict.html", {"top_stocks_dict": top_stock_dict})
